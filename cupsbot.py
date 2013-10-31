@@ -95,7 +95,7 @@ class TestBot(SingleServerIRCBot):
       return
     else:
       if len(self.db) == 0: # db is not loaded
-        self.load_db(c, channel)
+        self.load_db()
         pass
 
       c.privmsg(channel, random.choice(self.db))
