@@ -81,7 +81,7 @@ class TestBot(SingleServerIRCBot):
     channel = e.target() # note that this might be a private query
     nick = nm_to_n(e.source())
 
-    if re.search("c*u*p", cmd.lower()) == None:
+    if re.search("c+u+p", cmd.lower()) == None:
       return
     elif len(cmd) > 1 and cmd[0] == '!':
       self.load_db()
