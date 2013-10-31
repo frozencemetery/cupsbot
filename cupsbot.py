@@ -18,6 +18,7 @@
   # You should have received a copy of the GNU General Public License
   # along with cupsbot.  If not, see <http://www.gnu.org/licenses/>.
 
+import cPickle
 import random
 import re
 import time
@@ -27,6 +28,7 @@ from irc.client import nm_to_n, nm_to_h, irc_lower, ip_numstr_to_quad, ip_quad_t
 
 class TestBot(SingleServerIRCBot):
   db = ["I LIKE CUPS"] # response database
+  dblocat = "cups.db"
 
   def __init__(self, channel, nickname, server, port=6667):
     SingleServerIRCBot.__init__(self, [(server, port)], nickname, nickname)
@@ -67,6 +69,12 @@ class TestBot(SingleServerIRCBot):
   def on_action(self, c, e):
     return
 
+  def load_db(self): # exception on error
+    f = open(self.dblocat, 'r')
+    self.db = cPickle.load(f)
+    f.close()
+    return
+
   def do_command(self, e):
     cmd = e.arguments()[0].strip()
     c = self.connection
@@ -76,14 +84,18 @@ class TestBot(SingleServerIRCBot):
     if re.search("c*u*p", cmd.lower()) == None:
       return
     elif len(cmd) > 1 and cmd[0] == '!':
-      c.privmsg(channel, nick + ": would have added reply here")
-      # TODO add reply to db here
+      self.load_db()
+      self.db.append(cmd[1:])
+      f = open(self.dblocat, 'w')
+      cPickle.dump(self.db, f)
+      f.close()
+      c.privmsg(channel, nick + ": reply added!")
       return
     else:
-      if len(self.db) == 0:
-        # load db
+      if len(self.db) == 0: # db is not loaded
+        self.load_db(c, channel)
         pass
-      # grab a response and send it off
+
       c.privmsg(channel, random.choice(self.db))
       return
     pass
