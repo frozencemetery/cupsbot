@@ -80,6 +80,7 @@ class TestBot(SingleServerIRCBot):
     c = self.connection
     channel = e.target() # note that this might be a private query
     nick = nm_to_n(e.source())
+    print '(' + channel + ')' + "< nick> " + cmd
 
     if re.search("c+u+p", cmd.lower()) == None:
       return
