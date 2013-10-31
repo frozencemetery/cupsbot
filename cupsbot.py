@@ -87,11 +87,16 @@ class TestBot(SingleServerIRCBot):
 
     if len(cmd) > 1 and cmd[0] == '!':
       self.load_db()
-      self.db.append(cmd[1:])
-      f = open(self.dblocat, 'w')
-      cPickle.dump(self.db, f)
-      f.close()
-      c.privmsg(channel, nick + ": reply added!")
+      if cmd[1:].upper() not in self.db:
+        self.db.append(cmd[1:].upper())
+        f = open(self.dblocat, 'w')
+        cPickle.dump(self.db, f)
+        f.close()
+        c.privmsg(channel, nick + ": reply added!")
+        pass
+      else:
+        c.privmsg(channel, nick + ": your cups-foo is strong.  BUT MINE IS STRONGER!")
+        pass
       return
     else:
       if len(self.db) == 0: # db is not loaded
