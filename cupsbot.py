@@ -27,7 +27,7 @@ from irc.bot import SingleServerIRCBot
 from irc.client import nm_to_n, nm_to_h, irc_lower, ip_numstr_to_quad, ip_quad_to_numstr
 
 class TestBot(SingleServerIRCBot):
-  db = ["I LIKE CUPS"] # response database
+  db = [] # response database
   dblocat = "cups.db"
 
   def __init__(self, channel, nickname, server, port=6667):
