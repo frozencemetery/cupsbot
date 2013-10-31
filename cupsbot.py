@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Copyright (C) 2012 Robbie Harwood
+# Copyright (C) 2013 Robbie Harwood (frozencemetery)
 # Based on code from the python irclib python-irclib.sourceforge.net (GPL)
 
   # This file is part of cupsbot, based on lurker.
@@ -70,9 +70,9 @@ class TestBot(SingleServerIRCBot):
     return
 
   def load_db(self): # exception on error
-    f = open(self.dblocat, 'r')
-    self.db = cPickle.load(f)
-    f.close()
+    with open(self.dblocat, 'r') as f:
+      self.db = cPickle.load(f)
+      pass
     return
 
   def do_command(self, e):
@@ -88,14 +88,15 @@ class TestBot(SingleServerIRCBot):
     if len(cmd) > 1 and cmd[0] == '!':
       self.load_db()
       if cmd[1:].upper() not in self.db:
-        self.db.append(cmd[1:].upper())
-        f = open(self.dblocat, 'w')
-        cPickle.dump(self.db, f)
-        f.close()
+        with open(self.dblocat, 'w') as f:
+          self.db.append(cmd[1:].upper())
+          cPickle.dump(self.db, f)
+          pass
         c.privmsg(channel, nick + ": reply added!")
         pass
       else:
-        c.privmsg(channel, nick + ": your cups-foo is strong.  BUT MINE IS STRONGER!")
+        c.privmsg(channel,
+                  nick + ": your cups-foo is strong.  BUT MINE IS STRONGER!")
         pass
       return
     else:
