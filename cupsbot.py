@@ -66,9 +66,6 @@ class TestBot(SingleServerIRCBot):
   def on_quit(self, c, e):
     return
 
-  def on_action(self, c, e):
-    return
-
   def load_db(self): # exception on error
     with open(self.dblocat, 'r') as f:
       self.db = cPickle.load(f)
@@ -107,6 +104,10 @@ class TestBot(SingleServerIRCBot):
       c.privmsg(channel, random.choice(self.db))
       return
     pass
+
+  def on_action(self, c, e):
+    self.do_command(e)
+    return
 
   def on_privmsg(self, c, e):
     self.do_command(e)
