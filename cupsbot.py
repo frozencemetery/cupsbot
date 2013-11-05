@@ -75,8 +75,11 @@ class TestBot(SingleServerIRCBot):
   def do_command(self, e):
     cmd = e.arguments()[0].strip()
     c = self.connection
-    channel = e.target() # note that this might be a private query
     nick = nm_to_n(e.source())
+    channel = e.target() # note that this might be a private query
+    if channel[:1] not in ['#', '&', '+', '!']:
+      channel = nick
+      pass
 
     if re.search("c+u+p", cmd.lower()) == None:
       return
