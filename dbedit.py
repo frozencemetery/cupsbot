@@ -1,3 +1,23 @@
+#!/usr/bin/env python
+
+# Copyright (C) 2013 Robbie Harwood (frozencemetery)
+# Based on code from the python irclib python-irclib.sourceforge.net (GPL)
+
+  # This file is part of cupsbot, based on lurker.
+
+  # cupsbot is free software: you can redistribute it and/or modify
+  # it under the terms of the GNU General Public License as published by
+  # the Free Software Foundation, either version 3 of the License, or
+  # (at your option) any later version.
+
+  # cupsbot is distributed in the hope that it will be useful,
+  # but WITHOUT ANY WARRANTY; without even the implied warranty of
+  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  # GNU General Public License for more details.
+
+  # You should have received a copy of the GNU General Public License
+  # along with cupsbot. If not, see <http://www.gnu.org/licenses/>.
+
 import sys
 
 import cPickle as P
