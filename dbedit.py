@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 # Copyright (C) 2013 Robbie Harwood (frozencemetery)
 # Based on code from the python irclib python-irclib.sourceforge.net (GPL)
@@ -29,7 +30,7 @@ with open(C.dblocat, 'r') as f:
   pass
 
 while True:
-  sys.stdout.write("\\>> "); sys.stdout.flush()
+  sys.stdout.write("☕> "); sys.stdout.flush()
 
   cur = sys.stdin.read(2)
   if cur[0] == 'q':
