@@ -77,7 +77,7 @@ class TestBot(SingleServerIRCBot):
     c = self.connection
     nick = nm_to_n(e.source())
 
-    if "cups" in nick.toLower():
+    if "cups" in nick.lower():
       return
 
     channel = e.target() # note that this might be a private query
