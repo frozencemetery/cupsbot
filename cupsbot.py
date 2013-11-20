@@ -76,6 +76,10 @@ class TestBot(SingleServerIRCBot):
     cmd = e.arguments()[0].strip()
     c = self.connection
     nick = nm_to_n(e.source())
+
+    if "cups" in nick.toLower():
+      return
+
     channel = e.target() # note that this might be a private query
     if channel[:1] not in ['#', '&', '+', '!']:
       channel = nick
