@@ -91,9 +91,10 @@ class TestBot(SingleServerIRCBot):
 
     if len(cmd) > 1 and cmd[0] == '!':
       self.load_db()
-      if cmd[1:].upper() not in self.db:
+      to_add = cmd[1:].upper().strip()
+      if to_add not in self.db:
         with open(self.dblocat, 'w') as f:
-          self.db.append(cmd[1:].upper())
+          self.db.append(to_add)
           cPickle.dump(self.db, f)
           pass
         c.privmsg(channel, nick + ": reply added!")
